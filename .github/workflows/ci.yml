@@ -24,6 +24,7 @@ jobs:
         with:
           version: "0.12.5"
           enable-cache: true
+          cache-suffix: py-${{ matrix.python-version }}
 
       - name: Set up Python
         uses: actions/setup-python@v6
