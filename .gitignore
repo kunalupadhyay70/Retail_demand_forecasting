@@ -1,0 +1,108 @@
+# -----------------------------
+# Python / uv / virtual env
+# -----------------------------
+.venv/
+venv/
+env/
+ENV/
+.python-version
+.env
+# -----------------------------
+# Python cache / tooling
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# -----------------------------
+# Jupyter
+# -----------------------------
+.ipynb_checkpoints/
+
+# -----------------------------
+# OS / editor files
+# -----------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# -----------------------------
+# Logs
+# -----------------------------
+logs/*
+*.log
+!logs/.gitkeep
+
+# -----------------------------
+# Local databases
+# -----------------------------
+*.db
+*.db-shm
+*.db-wal
+
+# -----------------------------
+# MLflow / local runs
+# -----------------------------
+mlruns/*
+!mlruns/.gitkeep
+
+# -----------------------------
+# Artifacts
+# Keep folder structure, ignore generated contents
+# -----------------------------
+artifacts/*
+!artifacts/.gitkeep
+!artifacts/models/
+artifacts/models/*
+!artifacts/models/.gitkeep
+
+# -----------------------------
+# Data
+# Keep directories, ignore large/generated files
+# -----------------------------
+data/raw/*
+!data/raw/.gitkeep
+
+data/interim/*
+!data/interim/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+data/predictions/*
+!data/predictions/.gitkeep
+
+# -----------------------------
+# Optional: ignore model outputs / exports
+# -----------------------------
+*.parquet
+*.feather
+*.csv
+*.pkl
+*.joblib
+*.onnx
+*.pt
+*.pth
+
+# But allow tracked placeholder files
+!.gitkeep
+
+# -----------------------------
+# Build / packaging
+# -----------------------------
+build/
+dist/
+*.egg-info/
+
+# -----------------------------
+# Docker / temp
+# -----------------------------
+*.tmp
+*.temp

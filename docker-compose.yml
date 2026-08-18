@@ -1,0 +1,53 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    init: true
+    ports:
+      - "8001:8001"
+    environment:
+      API_HOST: "0.0.0.0"
+      API_PORT: "8001"
+      DATABASE_URL: "sqlite:///artifacts/metadata.db"
+      MLFLOW_TRACKING_URI: "sqlite:///artifacts/mlflow.db"
+      UV_LINK_MODE: "copy"
+    volumes:
+      - ./artifacts:/app/artifacts
+      - ./data/processed:/app/data/processed:ro
+      - ./data/predictions:/app/data/predictions
+      - ./logs:/app/logs
+    command: python -m scripts.run_api
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health', timeout=5)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dashboard
+    init: true
+    ports:
+      - "8501:8501"
+    environment:
+      DATABASE_URL: "sqlite:///artifacts/metadata.db"
+      MLFLOW_TRACKING_URI: "sqlite:///artifacts/mlflow.db"
+      UV_LINK_MODE: "copy"
+      STREAMLIT_BROWSER_GATHER_USAGE_STATS: "false"
+      DASHBOARD_HOST: "0.0.0.0"
+      DASHBOARD_PORT: "8501"
+    volumes:
+      - ./artifacts:/app/artifacts
+      - ./data/predictions:/app/data/predictions:ro
+      - ./logs:/app/logs
+    command: python -m scripts.run_dashboard
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=5)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      api:
+        condition: service_healthy

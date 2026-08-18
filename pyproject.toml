@@ -1,0 +1,61 @@
+[project]
+name = "m5-demand-forecasting-platform"
+version = "0.1.0"
+description = "End-to-end Walmart M5 retail demand forecasting and monitoring platform"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "evidently>=0.7.21",
+    "fastapi>=0.135.1",
+    "joblib>=1.5.3",
+    "lightgbm>=4.6.0",
+    "loguru>=0.7.3",
+    "matplotlib>=3.10.8",
+    "mlflow>=3.10.1",
+    "numpy>=2.4.3",
+    "pandas>=2.3.3",
+    "prefect>=3.6.22",
+    "pyarrow>=23.0.1",
+    "pydantic>=2.12.5",
+    "pydantic-settings>=2.13.1",
+    "python-dotenv>=1.2.2",
+    "pyyaml>=6.0.3",
+    "scikit-learn>=1.8.0",
+    "sqlalchemy>=2.0.48",
+    "streamlit>=1.55.0",
+    "uvicorn>=0.41.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=26.3.1",
+    "httpx>=0.28.1",
+    "mypy>=1.19.1",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.15.6",
+]
+
+[tool.black]
+target-version = ["py311"]
+
+[tool.ruff]
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+check_untyped_defs = true
+no_implicit_optional = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["app/orchestration/flows.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
